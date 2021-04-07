@@ -32,7 +32,9 @@ function chnageAndSave(e) {
 
 function updateTimer() {
   chrome.storage.sync.get('time', ({ time }) => {
-    display.innerHTML = updateDisplay(time.startDate, time.timeToSleep)
+    if (time !== undefined) {
+      display.innerHTML = updateDisplay(time.startDate, time.timeToSleep)
+    }
   })
 }
 
