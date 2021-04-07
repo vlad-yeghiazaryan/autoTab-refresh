@@ -1,0 +1,33 @@
+{
+  "name": "AutoTab Refresh",
+  "description": "Refreshs the tab after a specified amount of minutes.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "tabs", "background", "scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "/images/s16.png",
+      "32": "/images/s32.png",
+      "48": "/images/s48.png",
+      "128": "/images/s128.png"
+    },
+    "icons": {
+      "16": "/images/s16.png",
+      "32": "/images/s32.png",
+      "48": "/images/s48.png",
+      "128": "/images/s128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
