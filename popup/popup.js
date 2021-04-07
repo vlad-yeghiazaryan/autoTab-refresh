@@ -5,11 +5,29 @@ const min = document.querySelector('#min')
 const max = document.querySelector('#max')
 
 function chnageAndSave(e) {
-  const defaults = {
-    min: min.value,
-    max: max.value,
-  }
-  chrome.storage.sync.set({ defaults })
+  chrome.storage.sync.get('defaults', ({ defaults }) => {
+    if (min.value === '') {
+      const def = {
+        min: defaults.min,
+        max: max.value,
+      }
+      chrome.storage.sync.set({defaults:def})
+    }
+    else if (max.value === '') {
+      const def = {
+        min: min.value,
+        max: defaults.max,
+      }
+      chrome.storage.sync.set({defaults:def})
+    }
+    else {
+      const def = {
+        min: min.value,
+        max: max.value,
+      }
+      chrome.storage.sync.set({defaults:def})
+    }
+  })
 }
 
 function updateTimer() {
@@ -53,8 +71,8 @@ function stopTime() {
 // Executions
 start.addEventListener('click', startTime)
 stopButton.addEventListener('click', stopTime)
-min.addEventListener('change', chnageAndSave)
-max.addEventListener('change', chnageAndSave)
+min.addEventListener('keydown', chnageAndSave)
+max.addEventListener('keydown', chnageAndSave)
 updateTimer()
 
 chrome.storage.sync.get('defaults', ({ defaults }) => {
